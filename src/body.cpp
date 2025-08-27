@@ -5,7 +5,7 @@
 
 void Body::Draw()
 {
-    DrawCircleV(position, radius, color);
+    DrawCircleV(position, drawingRadius, color);
 }
 
 void Body::VerletUpdate(const Vector2 acceleration)
@@ -35,4 +35,13 @@ Vector2 Body::GetVelocityFrom(const Body& BodyB)
     float v = sqrtf(G * BodyB.mass/r);
     Vector2 velocity = Vector2Scale(tNormal,v);
     return velocity;
+}
+
+void camera::UpdateCamera(const std::vector<Body> bodies, Camera2D &camera, int &cameraTarget)
+{
+    if(cameraTarget == -1) return;
+    if (cameraTarget >= 0 && cameraTarget < (int)bodies.size())
+    {
+        camera.target = bodies[cameraTarget].position;
+    }
 }
